@@ -1,9 +1,11 @@
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
+use rocket::{get, http::Status, serde::json::Json};
 
 // ruta principal
-#[get("/hello")]
-fn index() -> &'static str {
-    "hello world"
+#[get("/")]
+fn hello() -> Result<Json<String>, Status> {
+    Ok(Json(String::from("Hello from Rust and MongoDB")))
 }
 
 // módulos de las otras rutas 
@@ -14,7 +16,7 @@ fn rocket() -> _ {
     rocket::build()
         .mount("/api", 
         routes![
-            index,
+            hello,
         ]
     )
 }
