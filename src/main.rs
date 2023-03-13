@@ -14,7 +14,7 @@ mod models; // es para modularizar las lógicas de datos
 mod repository; // es para modularizar lógicas de bases de datos
 
 // api y lógica de la base de datos
-use api::user_api::create_user;
+use api::user_api::{get_all_users, create_user};
 use repository::mongodb_repo::MongoRepo;
 
 // esta macro lanza la función principal para ejecutarse
@@ -38,6 +38,7 @@ fn rocket() -> _ {
         .mount("/api",
         routes![
             hello,
+            get_all_users,
             create_user
         ]
     )

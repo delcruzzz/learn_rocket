@@ -60,4 +60,14 @@ impl MongoRepo {
             .expect("error creating user");
         Ok(user)
     }
+
+    pub fn get_all_users(&self) -> Result<Vec<User>, Error> {
+        let cursors = self
+            .col
+            .find(None, None)
+            .ok()
+            .expect("error getting users");
+        let users = cursors.map(|doc| doc.unwrap()).collect();
+        Ok(users)
+    }
 }

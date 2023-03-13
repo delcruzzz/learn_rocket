@@ -41,3 +41,12 @@ pub fn create_user(
         _ => Err(Status::InternalServerError),
     }
 }
+
+#[get("/users")]
+pub fn get_all_users(db: &State<MongoRepo>) -> Result<Json<Vec<User>>, Status> {
+    let users = db.get_all_users();
+    match users {
+      Ok(users) => Ok(Json(users)),
+      _ => Err(Status::InternalServerError),
+    }
+}
